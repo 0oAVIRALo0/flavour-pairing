@@ -38,7 +38,7 @@ const ForceGraph: React.FC<ForceGraphProps> = ({
             new THREE.MeshBasicMaterial({
               color:
                 node.id === mainNode
-                  ? "#f59e0b"
+                  ? "#ef4444"
                   : isDark
                   ? "#60a5fa"
                   : "#2563eb",
@@ -49,9 +49,9 @@ const ForceGraph: React.FC<ForceGraphProps> = ({
           return group;
         }}
         linkLabel={(link: any) =>
-          `${link.value} common molecule${link.value > 1 ? "s" : ""}`
+          `${link.commonMol} common molecule${link.commonMol > 1 ? "s" : ""}`
         }
-        linkWidth={(link: any) => link.value} // Thicker line for higher values (optional)
+        linkWidth={3}
         linkDirectionalParticles={2}
         linkDirectionalParticleWidth={2}
       />
