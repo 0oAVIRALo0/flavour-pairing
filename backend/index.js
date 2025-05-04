@@ -131,6 +131,32 @@ app.get("/fetch-food-pairing", async (req, res) => {
   }
 });
 
+app.get("/by-alias/:alias", async (req, res) => {
+  const { alias } = req.params;
+
+  if (!alias) {
+    return res.status(400).json({ error: "Alias parameter is required" });
+  }
+
+  try {
+    const response = await axios.get(
+      `http://192.168.1.92:9207/api/food/by-alias/${encodeURIComponent(alias)}`,
+      {
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+          Accept: "application/json",
+        },
+      }
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error("Error fetching food by alias:", error.message);
+    res.status(500).json({ error: "Failed to fetch food by alias" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`✅ Server running on port ${port}`);
 });
